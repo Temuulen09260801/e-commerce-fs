@@ -1,8 +1,46 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import axios from "axios";
+import { apiUrl } from "@/app/utils/util";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const router = useRouter();
+
+  interface IUser {
+    email: string;
+    password: string;
+  }
+
+  const [userData, setUserData] = useState<IUser>({
+    email: "",
+    password: "",
+  });
+
+  const login = async () => {
+    const { email, password } = userData;
+
+    try {
+      const response = await axios.post(`${apiUrl}/api/v1/auth/login`, {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("There was an error signing in:", error);
+      toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
+    }
+  };
+
   return (
     <section className="h-[806px] flex items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-6 w-[334px]">
@@ -11,12 +49,21 @@ const Login = () => {
           <Input
             placeholder="Имэйл хаяг"
             className="w-full rounded-[18px] px-3 py-1 text-sm"
+            onChange={(e) =>
+              setUserData({ ...userData, email: e.target.value })
+            }
           ></Input>
           <Input
             placeholder="Нууц үг"
             className="w-full rounded-[18px] px-3 py-1 text-sm"
+            onChange={(e) =>
+              setUserData({ ...userData, password: e.target.value })
+            }
           ></Input>
-          <Button className="w-full rounded-[18px] px-4 py-2 bg-[#2563EB] text-white">
+          <Button
+            className="w-full rounded-[18px] px-4 py-2 bg-[#2563EB] text-white"
+            onClick={login}
+          >
             Нэвтрэх
           </Button>
           <Button className="w-1/2 m-auto bg-inherit border-none text-sm text-[#71717A] underline-offset-2">
