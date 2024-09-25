@@ -2,6 +2,7 @@
 import { apiUrl } from "@/app/utils/util";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -122,9 +123,11 @@ const Signup = () => {
           >
             Үүсгэх
           </Button>
-          <Button className="w-full rounded-[18px] px-4 py-2 text-[#2563EB] bg-white border-[1px] border-[#2563EB]">
-            Нэвтрэх
-          </Button>
+          <Link href="/login">
+            <Button className="w-full rounded-[18px] px-4 py-2 text-[#2563EB] bg-white border-[1px] border-[#2563EB]">
+              Нэвтрэх
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

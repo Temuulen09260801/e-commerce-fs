@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { apiUrl } from "@/app/utils/util";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
@@ -69,9 +70,11 @@ const Login = () => {
           <Button className="w-1/2 m-auto bg-inherit border-none text-sm text-[#71717A] underline-offset-2">
             Нууц үг мартсан
           </Button>
-          <Button className="w-full rounded-[18px] px-4 py-2 text-[#2563EB] bg-white border-[1px] border-[#2563EB]">
-            Бүртгүүлэх
-          </Button>
+          <Link href="/signup">
+            <Button className="w-full rounded-[18px] px-4 py-2 text-[#2563EB] bg-white border-[1px] border-[#2563EB]">
+              Бүртгүүлэх
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
