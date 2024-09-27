@@ -11,6 +11,9 @@ interface IUser {
   role: String;
   profile_img: String;
   address: String;
+  otp: String;
+  passwordResetToken: String;
+  passwordResetTokenExpire: Date;
   created_at: Date;
   updated_at: Date;
 }
@@ -47,6 +50,9 @@ const userSchema = new Schema<IUser>({
       "https://images.unsplash.com/photo-1726516335449-eaa942fd4c2f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxN3x8fGVufDB8fHx8fA%3D%3D",
   },
   address: String,
+  otp: { type: String, default: "" },
+  passwordResetToken: { type: String, default: "" },
+  passwordResetTokenExpire: { type: Date, default: undefined },
   created_at: {
     type: Date,
     default: Date.now,
