@@ -75,7 +75,7 @@ const Email = () => {
   }, [countDown]);
 
   return (
-    <div className="h-[calc(100vh-350px)] flex flex-col items-center">
+    <div className="h-[calc(100vh-363px)] flex flex-col items-center">
       <div className="w-[320px] mt-24">
         {step === 1 && (
           <>

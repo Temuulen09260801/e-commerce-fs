@@ -4,6 +4,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { Search } from "lucide-react";
 import { IoMdPerson } from "react-icons/io";
+import Link from "next/link";
 
 export const Header = () => {
   return (
@@ -26,12 +27,16 @@ export const Header = () => {
       <div className="flex gap-6 items-center">
         <FaRegHeart color="white" size={24} />
         <IoCartOutline color="white" size={24} />
-        <Button className="rounded-[18px] border-[#2563EB] border-[1px] py-2 px-3 text-white text-sm">
-          Бүртгүүлэх
-        </Button>
-        <Button className="rounded-[18px] py-2 px-3 text-white text-sm bg-[#2563EB]">
-          Нэвтрэх
-        </Button>
+        <Link href="/signup">
+          <Button className="rounded-[18px] border-[#2563EB] border-[1px] py-2 px-3 text-white text-sm">
+            Бүртгүүлэх
+          </Button>
+        </Link>
+        <Link href="/login">
+          <Button className="rounded-[18px] py-2 px-3 text-white text-sm bg-[#2563EB]">
+            Нэвтрэх
+          </Button>
+        </Link>
         {/* <IoMdPerson color="white" size={24} /> */}
       </div>
     </header>
