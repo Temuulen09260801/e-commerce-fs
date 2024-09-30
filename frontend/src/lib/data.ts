@@ -46,7 +46,7 @@ export const products: Product[] = [
     name: "Chunky Glyph Cap",
     price: 120000,
     image: "/products/image7.png",
-    discount: 0,
+    discount: 20,
   },
   {
     name: "Local Styles Crewneck",

@@ -18,7 +18,7 @@ const Email = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [otpValue, setOtpValue] = useState("");
-  const [countDown, setCountDown] = useState(30);
+  const [countDown, setCountDown] = useState(60);
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -32,6 +32,7 @@ const Email = () => {
       );
       if (res.status === 200) {
         setStep(step + 1);
+        toast.success("Otp code таны имэйл хаяг руу явууллаа.");
       }
     } catch (error) {
       toast.error("Имэйл илгээхэд алдаа гарлаа");
@@ -46,7 +47,7 @@ const Email = () => {
       try {
         const res = await axios.post(
           "http://localhost:8000/api/v1/auth/verify-otp",
-          { email, otpValue }
+          { email, otpValue: value }
         );
         if (res.status === 200) {
           toast.success(
@@ -55,13 +56,16 @@ const Email = () => {
           router.push("/login");
         }
       } catch (error) {
+        console.log("otp", error);
         toast.error("Имэйл илгээхэд алдаа гарлаа");
       }
     }
   };
 
   const handleResendOtp = () => {
-    setCountDown(30);
+    setCountDown(60);
+    handleSendOtp();
+    setStep(1);
   };
 
   useEffect(() => {
@@ -99,7 +103,7 @@ const Email = () => {
           <div className="h-[calc(100vh-350px)] flex flex-col items-center mt-24">
             <EmailIcon />
             <h1 className="mt-7 text-2xl font-bold">Баталгаажуулах</h1>
-            <p className="mt-2 mb-6 text-text-primary">
+            <p className="mt-2 mb-6 text-text-primary text-center">
               {`“${email}” хаягт илгээсэн баталгаажуулах кодыг оруулна уу`}
             </p>
             <div className="flex flex-col gap-4 text-sm">

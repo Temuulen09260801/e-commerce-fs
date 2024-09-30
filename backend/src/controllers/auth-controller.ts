@@ -125,3 +125,19 @@ export const verifyPassword = async (req: Request, res: Response) => {
   await findUser.save();
   res.status(200).json({ message: "Нууц үг  амжилттэй сэргээлээ" });
 };
+
+export const newPassword = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      res.status(404).json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй." });
+    }
+    const updatedPassword = await User.updateOne({
+      password,
+    });
+    res.status(201).json({ message: "Update password is successfull" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error });
+  }
+};
