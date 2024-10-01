@@ -55,6 +55,7 @@ const Login = () => {
             }
           ></Input>
           <Input
+            type="password"
             placeholder="Нууц үг"
             className="w-full rounded-[18px] px-3 py-1 text-sm"
             onChange={(e) =>

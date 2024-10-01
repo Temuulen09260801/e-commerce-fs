@@ -5,8 +5,11 @@ import { IoCartOutline } from "react-icons/io5";
 import { Search } from "lucide-react";
 import { IoMdPerson } from "react-icons/io";
 import Link from "next/link";
+import { useContext } from "react";
+import { UserContext, useUser } from "@/provider/user-provider";
 
 export const Header = () => {
+  const { user } = useUser();
   return (
     <header className="flex justify-between bg-black px-6 py-4 items-center">
       <div className="flex gap-8 items-center">

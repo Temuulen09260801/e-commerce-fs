@@ -42,9 +42,12 @@ export const login = async (req: Request, res: Response) => {
           .json({ message: "Хэрэглэгчийн и-мэйл эсвэл нууц үг буруу байна." });
       } else {
         const token = generateToken({ id: user._id });
-        res
-          .status(200)
-          .json({ message: "Хэрэглэгч амжилттай нэвтэрлээ", token });
+        const { firstname, profile_img, email } = user;
+        res.status(200).json({
+          message: "Хэрэглэгч амжилттай нэвтэрлээ",
+          token,
+          user: { firstname, profile_img, email },
+        });
       }
     }
   } catch (error) {
@@ -94,50 +97,39 @@ export const verifyOtp = async (req: Request, res: Response) => {
   findUser.passwordResetToken = hashedResetToken;
   findUser.passwordResetTokenExpire = new Date(Date.now() + 10 * 60 * 1000);
   await findUser.save();
-
+  console.log("RESET TOKEN", resetToken);
   await sendEmail(
     email,
-    `<a href="http://localhost:3000/forgetpass/newpass?resettoken="${resetToken}"">Нууц үг сэргээх холбоос</a>`
+    `<a href="http://localhost:3000/forgetpass/newpass?resettoken=${resetToken}">Нууц үг сэргээх холбоос</a>`
   );
   res.status(200).json({ message: "Нууц үг сэргээх имэйл илгээлээ" });
 };
 
 export const verifyPassword = async (req: Request, res: Response) => {
   const { password, resetToken } = req.body;
+  console.log("shalgah", password, resetToken);
 
   const hashedResetToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-
+  console.log("hash", hashedResetToken);
   const findUser = await User.findOne({
     passwordResetToken: hashedResetToken,
-    passwordResetTokenExpire: { $gt: Date.now },
+    passwordResetTokenExpire: { $gt: Date.now() },
   });
-
+  console.log("finduser", findUser);
   if (!findUser) {
-    return res
-      .status(400)
-      .json({ message: "Таны нууц үг сэргээх хугацаа дууссан байна:" });
+    return (
+      res
+        .status(400)
+        .json({ message: "Таны нууц үг сэргээх хугацаа дууссан байна:" }),
+      console.log("Res", res)
+    );
   }
 
   findUser.password = password;
   await findUser.save();
+  console.log("user", findUser);
   res.status(200).json({ message: "Нууц үг  амжилттэй сэргээлээ" });
-};
-
-export const newPassword = async (req: Request, res: Response) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      res.status(404).json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй." });
-    }
-    const updatedPassword = await User.updateOne({
-      password,
-    });
-    res.status(201).json({ message: "Update password is successfull" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error: error });
-  }
 };

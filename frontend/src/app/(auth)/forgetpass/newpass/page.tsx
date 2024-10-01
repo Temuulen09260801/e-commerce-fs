@@ -3,12 +3,13 @@
 import { apiUrl } from "@/app/utils/util";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const NewPass = () => {
   const router = useRouter();
+  const params = useSearchParams();
 
   interface IPass {
     password: string;
@@ -28,12 +29,15 @@ const NewPass = () => {
     }
 
     try {
-      const response = await fetch(`${apiUrl}/api/v1/auth/new-password`, {
+      const response = await fetch(`${apiUrl}/api/v1/auth/verify-password`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({
+          password,
+          resetToken: params.get("resettoken"),
+        }),
       });
 
       if (response.status === 201) {

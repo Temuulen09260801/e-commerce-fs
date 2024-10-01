@@ -88,6 +88,7 @@ const Signup = () => {
             </p>
           </div>
           <Input
+            type="password"
             placeholder="Нууц үг"
             className="w-full rounded-[18px] px-3 py-1 text-sm"
             value={userData.password}
@@ -96,6 +97,7 @@ const Signup = () => {
             }
           ></Input>
           <Input
+            type="password"
             placeholder="Нууц үг давтах"
             className="w-full rounded-[18px] px-3 py-1 text-sm"
             value={userData.repassword}
