@@ -2,7 +2,7 @@ import { Hero } from "@/components/home/page";
 import { FeaturedProductCard, ProductCard } from "@/components/product-card";
 import { products } from "@/lib/data";
 
-export default function Home() {
+export default function Category() {
   return (
     <main>
       <section className="mt-[60px] mb-24 max-w-[1100px] mx-auto ">

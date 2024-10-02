@@ -2,13 +2,14 @@
 import { Hero } from "@/components/home/page";
 import { FeaturedProductCard, ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { products } from "@/lib/data";
-import { Heart } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Home() {
+export default function Detail() {
   //  type inference
   const [count, setCount] = useState<number>(100);
   const minus = () => {
@@ -19,9 +20,9 @@ export default function Home() {
   };
   return (
     <main>
-      <section className="mt-[60px] mb-24 max-w-[1100px] mx-auto ">
+      <section className="mt-[60px] mb-24 max-w-[1100px] mx-auto  ">
         <div className="flex gap-5">
-          <div className="flex gap-5 items-center">
+          <div className="flex gap-5 items-center h-[600px]">
             <div className="flex flex-col gap-2">
               <Image
                 src="/products/image2.png"
@@ -103,7 +104,85 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-            <div></div>
+            <div className="mt-[55px]">
+              {/* rating */}
+              <div>
+                <div className="flex gap-4">
+                  <p className="text-sm text-[#09090B]">Үнэлгээ</p>
+                  <span className="text-sm text-[#2563EB] underline">
+                    бүгдийг хураах
+                  </span>
+                </div>
+                <div className="flex gap-1 items-center">
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                  <p className="text-[#09090B] text-sm font-bold">4.6</p>
+                  <span className="text-[#71717A] text-sm ">(24)</span>
+                </div>
+              </div>
+              {/* commends */}
+              <div className="mt-6">
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center">
+                    <p className="text-sm text-[#09090B] font-bold">Saraa</p>
+                    <div className="flex gap-1">
+                      <Star color="yellow" size={24} />
+                      <Star color="yellow" size={24} />
+                      <Star color="yellow" size={24} />
+                      <Star color="yellow" size={24} />
+                      <Star color="yellow" size={24} />
+                    </div>
+                  </div>
+                  <p className="text-[#71717A] text-sm ">
+                    Ваав материал ёстой гоё байна 😍
+                  </p>
+                </div>
+              </div>
+              {/* rate now */}
+              <div className="rounded-2xl bg-[#F4F4F5] p-6 mt-6">
+                <p className="text-sm text-[#09090B] font-medium">
+                  Одоор үнэлэх:
+                </p>
+                <div className="flex mt-2">
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                  <Star color="yellow" size={24} />
+                </div>
+                <p className="text-sm text-[#09090B] font-medium mt-6 mb-2">
+                  Сэтгэгдэл үлдээх:
+                </p>
+                <Input
+                  placeholder="Энд бичнэ үү"
+                  className="bg-white border-[1px] border-[#E4E4E7] text-sm text-[#09090B] rounded-md px-3 py-2 h-[94px]"
+                />
+                <Button className="bg-[#2563EB] px-9 py-2 rounded-full text-sm mt-6 font-medium">
+                  Үнэлэх
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-20">
+          <h3 className="text-[30px] font-bold mb-6">Холбоотой бараа</h3>
+          <div className="grid grid-cols-4 gap-y-12 gap-x-5">
+            {products.map((product, index) => {
+              return (
+                <>
+                  <ProductCard
+                    key={index}
+                    name={product.name}
+                    price={product.price}
+                    image={product.image}
+                    discount={product.discount}
+                  />
+                </>
+              );
+            })}
           </div>
         </div>
       </section>
