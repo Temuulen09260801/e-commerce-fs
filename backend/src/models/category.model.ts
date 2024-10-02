@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 
 interface ICategory {
+  _id: Schema.Types.ObjectId;
   name: string;
   description: string;
 }

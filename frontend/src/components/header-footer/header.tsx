@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FaRegHeart } from "react-icons/fa";
@@ -5,11 +6,11 @@ import { IoCartOutline } from "react-icons/io5";
 import { Search } from "lucide-react";
 import { IoMdPerson } from "react-icons/io";
 import Link from "next/link";
-import { useContext } from "react";
-import { UserContext, useUser } from "@/provider/user-provider";
+import { useUser } from "@/provider/user-provider";
 
 export const Header = () => {
   const { user } = useUser();
+  console.log("USER", user);
   return (
     <header className="flex justify-between bg-black px-6 py-4 items-center">
       <div className="flex gap-8 items-center">
@@ -30,16 +31,21 @@ export const Header = () => {
       <div className="flex gap-6 items-center">
         <FaRegHeart color="white" size={24} />
         <IoCartOutline color="white" size={24} />
-        <Link href="/signup">
-          <Button className="rounded-[18px] border-[#2563EB] border-[1px] py-2 px-3 text-white text-sm">
-            Бүртгүүлэх
-          </Button>
-        </Link>
-        <Link href="/login">
-          <Button className="rounded-[18px] py-2 px-3 text-white text-sm bg-[#2563EB]">
-            Нэвтрэх
-          </Button>
-        </Link>
+        {user && <img src={""} alt="'profile" />}
+        {!user && (
+          <>
+            <Link href="/signup">
+              <Button className="rounded-[18px] border-[#2563EB] border-[1px] py-2 px-3 text-white text-sm">
+                Бүртгүүлэх
+              </Button>
+            </Link>
+            <Link href="/login">
+              <Button className="rounded-[18px] py-2 px-3 text-white text-sm bg-[#2563EB]">
+                Нэвтрэх
+              </Button>
+            </Link>
+          </>
+        )}
         {/* <IoMdPerson color="white" size={24} /> */}
       </div>
     </header>

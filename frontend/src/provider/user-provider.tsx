@@ -1,5 +1,5 @@
+"use client";
 import React, { createContext, useContext, useState } from "react";
-
 
 interface IUser {
   firstname: string;
@@ -11,7 +11,10 @@ interface IContext {
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
 }
 
-export const UserContext = createContext<IContext>({user: null, setUser: ()=>void});
+export const UserContext = createContext<IContext>({
+  user: null,
+  setUser: () => {},
+});
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
