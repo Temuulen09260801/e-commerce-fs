@@ -13,15 +13,13 @@ export default function Save() {
           <div className="flex flex-col gap-4">
             {products.map((product, index) => {
               return (
-                <>
-                  <SavedProductCard
-                    key={index}
-                    name={product.name}
-                    price={product.price}
-                    image={product.image}
-                    discount={product.discount}
-                  />
-                </>
+                <SavedProductCard
+                  key={index}
+                  name={product.name}
+                  price={product.price}
+                  image={product.image}
+                  discount={product.discount}
+                />
               );
             })}
           </div>
