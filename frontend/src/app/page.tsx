@@ -27,11 +27,23 @@
 //   );
 // }
 
+"use client";
 import { Hero } from "@/components/home/page";
 import { FeaturedProductCard, ProductCard } from "@/components/product-card";
-import { products } from "@/lib/data";
+import { useEffect, useState } from "react";
+import { IProduct } from "./utils/interfaces";
+import axios from "axios";
+import { apiUrl } from "./utils/util";
 
 export default function Home() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const getAllProducts = async () => {
+    const response = await axios.get(`${apiUrl}/api/v1/product`);
+    setProducts(response.data.products);
+  };
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   return (
     <main>
       <Hero />
@@ -40,21 +52,9 @@ export default function Home() {
           return (
             <>
               {index === 6 || index === 7 ? (
-                <FeaturedProductCard
-                  key={index}
-                  name={product.name}
-                  price={product.price}
-                  image={product.image}
-                  discount={product.discount}
-                />
+                <FeaturedProductCard key={product._id} product={product} />
               ) : (
-                <ProductCard
-                  key={index}
-                  name={product.name}
-                  price={product.price}
-                  image={product.image}
-                  discount={product.discount}
-                />
+                <ProductCard key={product._id} product={product} />
               )}
             </>
           );

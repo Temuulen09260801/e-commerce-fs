@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import Product from "../models/product.model";
-import Category from "../models/category.model";
 
 export const getAllProduct = async (req: Request, res: Response) => {
   try {
     const products = await Product.find({}).populate("category");
-    res.status(200).json({ message: "success to get all products", products });
+    res
+      .status(200)
+      .json({ message: "success to get all products", products: products });
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "failed to get all products", error });
