@@ -10,6 +10,11 @@ export interface IProduct {
   discount: number;
   category: object;
 }
+export interface ICategory {
+  _id: string;
+  name: string;
+  description: string;
+}
 
 export interface ISaved {
   _id: string;
